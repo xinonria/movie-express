@@ -1,0 +1,198 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// 用户表
+model User {
+  userId       BigInt    @id @default(autoincrement()) @map("user_id")
+  userAvatar   String?   @map("user_avatar") @db.VarChar(500)
+  userNickname String    @map("user_nickname") @db.VarChar(100)
+  userEmail    String    @unique @map("user_email") @db.VarChar(150)
+  userPassword String    @map("user_password") @db.VarChar(255)
+  vipExpiresAt DateTime? @map("vip_expires_at") @db.Date
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  comments     Comment[]
+  commentVotes CommentVote[]
+  histories    History[]
+  orders       Order[]
+  ratings      Rating[]
+
+  @@index([userEmail], map: "idx_user_email")
+  @@map("user")
+}
+
+/// 电影表
+model Movie {
+  movieId     BigInt    @id @default(autoincrement()) @map("movie_id")
+  name        String    @db.VarChar(255)
+  alias       String?   @db.VarChar(500)
+  actors      String?   @db.Text
+  cover       String?   @db.VarChar(500)
+  directors   String?   @db.Text
+  genres      String?   @db.VarChar(255)
+  regions     String?   @db.VarChar(255)
+  languages   String?   @db.VarChar(255)
+  releaseDate DateTime? @map("release_date") @db.Date
+  mins        Int?
+  imdbId      String?   @map("imdb_id") @db.VarChar(50)
+  doubanScore Float?    @map("douban_score")
+  doubanVotes Int?      @map("douban_votes")
+  tags        String?   @db.VarChar(500)
+  storyline   String?   @db.Text
+  slug        String?   @db.VarChar(255)
+  year        Int?
+  actorIds    String?   @map("actor_ids") @db.Text
+  directorIds String?   @map("director_ids") @db.Text
+  isVip       Boolean   @default(false) @map("is_vip")
+
+  comments       Comment[]
+  histories      History[]
+  ratings        Rating[]
+  movieActors    MovieActor[]
+  movieDirectors MovieDirector[]
+
+  @@index([name], map: "idx_movie_name")
+  @@index([year], map: "idx_movie_year")
+  @@map("movie")
+}
+
+/// 演员/导演表
+model Person {
+  personId     BigInt    @id @default(autoincrement()) @map("person_id")
+  name         String    @db.VarChar(255)
+  sex          String?   @db.VarChar(10)
+  nameEn       String?   @map("name_en") @db.VarChar(255)
+  nameZh       String?   @map("name_zh") @db.VarChar(255)
+  birth        DateTime? @db.Date
+  birthplace   String?   @db.VarChar(255)
+  constellatory String?  @db.VarChar(50)
+  profession   String?   @db.VarChar(255)
+  biography    String?   @db.Text
+  profileImage String?   @map("profile_image") @db.VarChar(255)
+
+  movieActors    MovieActor[]
+  movieDirectors MovieDirector[]
+
+  @@index([name], map: "idx_person_name")
+  @@index([birthplace], map: "idx_person_birthplace")
+  @@map("person")
+}
+
+/// 评论表
+model Comment {
+  commentId BigInt   @id @default(autoincrement()) @map("comment_id")
+  userId    BigInt   @map("user_id")
+  movieId   BigInt   @map("movie_id")
+  content   String   @db.Text
+  votes     Int      @default(0)
+  rating    Int?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user         User          @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  movie        Movie         @relation(fields: [movieId], references: [movieId], onDelete: Cascade)
+  commentVotes CommentVote[]
+
+  @@index([userId], map: "user_id")
+  @@index([movieId], map: "idx_comment_movie")
+  @@map("comment")
+}
+
+/// 评论点赞记录表
+model CommentVote {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt   @map("user_id")
+  commentId BigInt   @map("comment_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    User    @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  comment Comment @relation(fields: [commentId], references: [commentId], onDelete: Cascade)
+
+  @@unique([userId, commentId], map: "uk_user_comment")
+  @@index([commentId], map: "idx_comment_vote_comment")
+  @@index([userId], map: "idx_comment_vote_user")
+  @@map("comment_vote")
+}
+
+/// 观看历史记录表
+model History {
+  id          Int      @id @default(autoincrement())
+  userId      BigInt   @map("user_id")
+  movieId     BigInt   @map("movie_id")
+  historyTime DateTime @default(now()) @map("history_time")
+
+  user  User  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  movie Movie @relation(fields: [movieId], references: [movieId], onDelete: Cascade)
+
+  @@index([userId], map: "idx_history_user")
+  @@index([movieId], map: "idx_history_movie")
+  @@map("history")
+}
+
+/// 电影演员关系表
+model MovieActor {
+  id           BigInt  @id @default(autoincrement())
+  movieId      BigInt  @map("movie_id")
+  personId     BigInt  @map("person_id")
+  roleName     String? @map("role_name") @db.VarChar(255)
+  displayOrder Int     @default(0) @map("display_order")
+
+  movie  Movie  @relation(fields: [movieId], references: [movieId], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [personId], onDelete: Cascade)
+
+  @@unique([movieId, personId], map: "uk_movie_actor")
+  @@index([movieId], map: "idx_movie_actor_movie")
+  @@index([personId], map: "idx_movie_actor_person")
+  @@map("movie_actor")
+}
+
+/// 电影导演关系表
+model MovieDirector {
+  id           BigInt @id @default(autoincrement())
+  movieId      BigInt @map("movie_id")
+  personId     BigInt @map("person_id")
+  displayOrder Int    @default(0) @map("display_order")
+
+  movie  Movie  @relation(fields: [movieId], references: [movieId], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [personId], onDelete: Cascade)
+
+  @@unique([movieId, personId], map: "uk_movie_director")
+  @@index([movieId], map: "idx_movie_director_movie")
+  @@index([personId], map: "idx_movie_director_person")
+  @@map("movie_director")
+}
+
+/// 订单表
+model Order {
+  orderId     BigInt   @id @default(autoincrement()) @map("order_id")
+  userId      BigInt   @map("user_id")
+  orderStatus String   @map("order_status") @db.VarChar(50)
+  orderType   String   @map("order_type") @db.VarChar(50)
+  orderTime   DateTime @default(now()) @map("order_time")
+
+  user User @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@index([userId], map: "idx_order_user")
+  @@map("order")
+}
+
+/// 评分表
+model Rating {
+  ratingId  BigInt   @id @default(autoincrement()) @map("rating_id")
+  userId    BigInt   @map("user_id")
+  movieId   BigInt   @map("movie_id")
+  rating    Int
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user  User  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  movie Movie @relation(fields: [movieId], references: [movieId], onDelete: Cascade)
+
+  @@unique([userId, movieId], map: "uk_user_movie")
+  @@index([movieId], map: "idx_rating_movie")
+  @@map("rating")
+}
