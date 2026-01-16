@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>排行榜 - 电影天堂</title>
+    <link rel="stylesheet" href="/css/movie-site.css" />
+    <style>
+      .rank-page {
+        padding-top: 100px;
+        min-height: 100vh;
+      }
+
+      .rank-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 4% 60px;
+      }
+
+      .movies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .rank-page {
+          padding-top: 80px;
+        }
+
+        .movies-grid {
+          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+          gap: 16px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .rank-page {
+          padding-top: 70px;
+        }
+
+        .movies-grid {
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="site-header"></div>
+
+    <div class="rank-page">
+      <div class="rank-container">
+        <h1 class="section-title" id="rank-title">排行榜</h1>
+        <div class="movies-grid" id="rank-grid"></div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/pages/rank.js"></script>
+  </body>
+</html>

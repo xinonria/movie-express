@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>电影详情 - 电影天堂</title>
+    <link rel="stylesheet" href="/css/movie-site.css" />
+    <style>
+      .movie-hero {
+        position: relative;
+        min-height: 60vh;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+      }
+
+      .movie-hero .hero-backdrop {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+
+      .movie-hero .hero-backdrop img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(8px);
+        transform: scale(1.1);
+      }
+
+      .movie-hero .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: linear-gradient(
+          90deg,
+          rgba(10, 10, 10, 0.95) 0%,
+          rgba(10, 10, 10, 0.7) 70%,
+          transparent 100%
+        );
+      }
+
+      .movie-hero-content {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        max-width: 1800px;
+        margin: 0 auto;
+        padding: 0 4% 60px;
+      }
+
+      .movie-info-wrapper {
+        display: flex;
+        gap: 40px;
+        align-items: flex-end;
+      }
+
+      .movie-poster {
+        width: 280px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      }
+
+      .movie-poster img {
+        width: 100%;
+        display: block;
+      }
+
+      .movie-details {
+        flex: 1;
+        color: white;
+      }
+
+      .movie-title {
+        font-size: 44px;
+        font-weight: 900;
+        margin-bottom: 10px;
+      }
+
+      .movie-subtitle {
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 20px;
+      }
+
+      .movie-stats {
+        display: flex;
+        gap: 25px;
+        margin-bottom: 20px;
+      }
+
+      .movie-stat {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      .movie-stat .label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+      }
+
+      .movie-stat .value {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--secondary-gold);
+      }
+
+      .movie-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-bottom: 25px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .movie-meta span {
+        display: inline-flex;
+        gap: 6px;
+      }
+
+      .movie-actions {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .btn-watch {
+        padding: 14px 36px;
+        background: var(--primary-red);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .btn-watch:hover {
+        background: var(--primary-dark);
+      }
+
+      .movie-section {
+        max-width: 1800px;
+        margin: 0 auto;
+        padding: 40px 4%;
+      }
+
+      .section-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      .cast-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+      }
+
+      .cast-card {
+        background: var(--bg-card);
+        border-radius: 10px;
+        padding: 16px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: block;
+      }
+
+      .cast-card img {
+        width: 100%;
+        border-radius: 8px;
+        height: 240px;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
+
+      .cast-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .comment-form {
+        background: var(--bg-card);
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+      }
+
+      .comment-form textarea {
+        width: 100%;
+        min-height: 120px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-primary);
+        border-radius: 8px;
+        padding: 12px;
+        resize: vertical;
+      }
+
+      .comment-actions {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .comment-actions select {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-primary);
+        border-radius: 6px;
+        padding: 8px 12px;
+      }
+
+      .comment-actions button {
+        background: var(--primary-red);
+        border: none;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .comments-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .comment-item {
+        background: var(--bg-card);
+        border-radius: 10px;
+        padding: 16px;
+        display: flex;
+        gap: 12px;
+      }
+
+      .comment-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .comment-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .comment-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .comment-user {
+        font-weight: 700;
+      }
+
+      .comment-rating {
+        color: var(--secondary-gold);
+        font-size: 12px;
+      }
+
+      .comment-time {
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+
+      .comment-content {
+        color: var(--text-secondary);
+      }
+
+      .comment-vote {
+        margin-top: 10px;
+        background: transparent;
+        border: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        border-radius: 20px;
+        padding: 6px 14px;
+        cursor: pointer;
+      }
+
+      .comment-vote.active {
+        border-color: var(--primary-red);
+        color: var(--primary-red);
+      }
+
+      @media (max-width: 900px) {
+        .movie-info-wrapper {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .movie-poster {
+          width: 200px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .movie-hero {
+          min-height: 50vh;
+        }
+
+        .movie-hero-content {
+          padding: 0 6% 40px;
+        }
+
+        .movie-poster {
+          width: 160px;
+        }
+
+        .movie-title {
+          font-size: 32px;
+        }
+
+        .movie-subtitle {
+          font-size: 16px;
+        }
+
+        .movie-stats {
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+
+        .movie-stat .value {
+          font-size: 18px;
+        }
+
+        .movie-meta {
+          gap: 12px;
+        }
+
+        .btn-watch {
+          width: 100%;
+          text-align: center;
+        }
+
+        .movie-section {
+          padding: 28px 6%;
+        }
+
+        .section-title {
+          font-size: 22px;
+        }
+
+        .cast-card img {
+          height: 200px;
+        }
+
+        .comment-form {
+          padding: 16px;
+        }
+
+        .comment-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .comment-actions select,
+        .comment-actions button {
+          width: 100%;
+        }
+
+        .comment-item {
+          flex-direction: column;
+        }
+
+        .comment-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .movie-poster {
+          width: 140px;
+        }
+
+        .movie-title {
+          font-size: 28px;
+        }
+
+        .movie-subtitle {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="site-header"></div>
+
+    <section class="movie-hero">
+      <div class="hero-backdrop">
+        <img id="backdrop-image" src="/images/herobackground.jpg" alt="电影海报" />
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="movie-hero-content">
+        <div class="movie-info-wrapper">
+          <div class="movie-poster">
+            <img id="poster-image" src="/images/herobackground.jpg" alt="电影封面" />
+          </div>
+          <div class="movie-details">
+            <h1 class="movie-title" id="movie-title">电影标题</h1>
+            <div class="movie-subtitle" id="movie-subtitle"></div>
+            <div class="movie-stats">
+              <div class="movie-stat">
+                <span class="label">评分</span>
+                <span class="value" id="movie-score">--</span>
+              </div>
+              <div class="movie-stat">
+                <span class="label">热度</span>
+                <span class="value" id="movie-votes">--</span>
+              </div>
+            </div>
+            <div class="movie-meta" id="movie-meta"></div>
+            <div class="movie-actions">
+              <a class="btn-watch" id="watch-button" href="/pages/play.html">▶ 立即播放</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="movie-section">
+      <h2 class="section-title">剧情简介</h2>
+      <p id="movie-storyline"></p>
+    </section>
+
+    <section class="movie-section">
+      <h2 class="section-title">演职员</h2>
+      <div class="cast-grid" id="cast-list"></div>
+    </section>
+
+    <section class="movie-section">
+      <h2 class="section-title">评论</h2>
+      <div class="comment-form" id="comment-form" style="display: none;">
+        <textarea id="comment-content" placeholder="写下你的观后感..."></textarea>
+        <div class="comment-actions">
+          <select id="comment-rating">
+            <option value="">评分（可选）</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button id="comment-submit" type="button">发布评论</button>
+        </div>
+      </div>
+      <div class="comments-list" id="comments-list"></div>
+      <div id="comments-empty" style="display: none; color: var(--text-secondary);">暂无评论</div>
+    </section>
+
+    <script type="module" src="/js/pages/movie.js"></script>
+  </body>
+</html>

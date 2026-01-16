@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIP会员中心 - 电影天堂</title>
+    <link rel="stylesheet" href="/css/movie-site.css" />
+    <style>
+      .vip-page {
+        padding-top: 100px;
+        min-height: 100vh;
+      }
+
+      .vip-banner {
+        background: linear-gradient(135deg, var(--secondary-gold), #ffed4e);
+        color: var(--bg-primary);
+        padding: 60px 0;
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .content-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 4% 60px;
+      }
+
+      .vip-plans {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .plan-card {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow: var(--shadow-card);
+        text-align: center;
+      }
+
+      .plan-card h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .plan-price {
+        font-size: 36px;
+        font-weight: 800;
+        color: var(--primary-red);
+      }
+
+      .plan-button {
+        margin-top: 20px;
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background: var(--primary-red);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .vip-page {
+          padding-top: 80px;
+        }
+
+        .vip-banner {
+          padding: 40px 0;
+          margin-bottom: 40px;
+        }
+
+        .plan-card {
+          padding: 24px;
+        }
+
+        .plan-price {
+          font-size: 30px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .vip-page {
+          padding-top: 70px;
+        }
+
+        .vip-banner h1 {
+          font-size: 28px;
+        }
+
+        .plan-card {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="site-header"></div>
+
+    <div class="vip-page">
+      <div class="vip-banner">
+        <div class="vip-banner-content">
+          <h1>VIP会员中心</h1>
+          <p id="vip-status">开通会员，解锁更多精彩</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="vip-plans">
+          <div class="plan-card">
+            <h3>1个月</h3>
+            <div class="plan-price">¥30</div>
+            <button class="plan-button" data-months="1">立即开通</button>
+          </div>
+          <div class="plan-card">
+            <h3>3个月</h3>
+            <div class="plan-price">¥90</div>
+            <button class="plan-button" data-months="3">立即开通</button>
+          </div>
+          <div class="plan-card">
+            <h3>12个月</h3>
+            <div class="plan-price">¥360</div>
+            <button class="plan-button" data-months="12">立即开通</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/pages/vip.js"></script>
+  </body>
+</html>

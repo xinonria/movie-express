@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>电影播放</title>
+    <link rel="stylesheet" href="/css/movie-site.css" />
+    <style>
+      body {
+        background-color: #0f0f0f;
+        color: #fff;
+      }
+
+      .video-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        position: relative;
+        padding-top: 5rem;
+      }
+
+      video {
+        width: 100%;
+        height: auto;
+        background-color: #000;
+      }
+
+      .movie-info {
+        padding: 20px;
+        background-color: #1a1a1a;
+        border-radius: 8px;
+        margin-top: 20px;
+      }
+
+      .vip-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 20;
+        display: none;
+      }
+
+      .vip-overlay.show {
+        display: flex;
+      }
+
+      .vip-message {
+        text-align: center;
+        padding: 40px;
+        background: #222;
+        border-radius: 12px;
+        max-width: 500px;
+      }
+
+      .vip-message h3 {
+        color: #ffd700;
+        margin-bottom: 20px;
+      }
+
+      .vip-message p {
+        margin-bottom: 30px;
+        font-size: 18px;
+      }
+
+      .btn-upgrade {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        color: #000;
+        font-weight: bold;
+        padding: 12px 40px;
+        font-size: 18px;
+        border: none;
+        text-decoration: none;
+        border-radius: 6px;
+        display: inline-block;
+      }
+
+      .trial-notice {
+        background-color: #ff6b6b;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .video-container {
+          margin: 12px auto;
+          padding-top: 4rem;
+        }
+
+        .movie-info {
+          padding: 16px;
+        }
+
+        .vip-message {
+          padding: 24px;
+          margin: 0 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .video-container {
+          padding-top: 3rem;
+        }
+
+        .vip-message p {
+          font-size: 16px;
+        }
+
+        .btn-upgrade {
+          padding: 10px 28px;
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="site-header"></div>
+
+    <div class="video-container">
+      <div id="trial-notice" class="trial-notice">您正在观看试看片段，开通VIP即可观看完整版</div>
+
+      <video id="videoPlayer" controls autoplay>
+        <source id="videoSource" src="" type="video/mp4" />
+        您的浏览器不支持视频播放。
+      </video>
+
+      <div id="vipOverlay" class="vip-overlay">
+        <div class="vip-message">
+          <h3>试看已结束</h3>
+          <p>开通VIP会员，即可观看完整版高清电影</p>
+          <a href="/pages/vip.html" class="btn-upgrade">立即开通VIP</a>
+        </div>
+      </div>
+
+      <div class="movie-info">
+        <h2 id="movie-title">电影名称</h2>
+        <p class="text-muted" id="movie-meta"></p>
+        <p id="movie-storyline"></p>
+      </div>
+    </div>
+
+    <script type="module" src="/js/pages/play.js"></script>
+  </body>
+</html>

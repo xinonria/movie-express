@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>首页 - 电影天堂</title>
+    <link rel="stylesheet" href="/css/movie-site.css" />
+  </head>
+  <body>
+    <div id="site-header"></div>
+
+    <main class="main-content">
+      <section class="hero-banner">
+        <div class="hero-background">
+          <img id="hero-image" src="/images/herobackground.jpg" alt="Hero Background" />
+        </div>
+        <div class="hero-gradient"></div>
+
+        <div class="hero-content">
+          <h1 class="hero-title" id="hero-title">热门大片</h1>
+          <p class="hero-description" id="hero-description">精彩大片，不容错过</p>
+          <div class="hero-actions">
+            <a id="hero-play" href="/pages/play.html" class="btn-hero btn-play">▶ 立即播放</a>
+            <button class="btn-hero btn-info" type="button">ℹ 更多信息</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">热门推荐</h2>
+        </div>
+        <div class="movie-slider">
+          <div class="movie-row" id="hot-movies"></div>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">最新上映</h2>
+        </div>
+        <div class="movie-slider">
+          <div class="movie-row" id="new-movies"></div>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">VIP精选</h2>
+        </div>
+        <div class="movie-slider">
+          <div class="movie-row" id="vip-movies"></div>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">探索类型</h2>
+        </div>
+        <div class="category-grid">
+          <a href="/pages/movies.html?genre=动作" class="category-card">
+            <div class="category-icon">🎬</div>
+            <div class="category-name">动作</div>
+          </a>
+          <a href="/pages/movies.html?genre=喜剧" class="category-card">
+            <div class="category-icon">😄</div>
+            <div class="category-name">喜剧</div>
+          </a>
+          <a href="/pages/movies.html?genre=爱情" class="category-card">
+            <div class="category-icon">💕</div>
+            <div class="category-name">爱情</div>
+          </a>
+          <a href="/pages/movies.html?genre=科幻" class="category-card">
+            <div class="category-icon">🚀</div>
+            <div class="category-name">科幻</div>
+          </a>
+          <a href="/pages/movies.html?genre=恐怖" class="category-card">
+            <div class="category-icon">👻</div>
+            <div class="category-name">恐怖</div>
+          </a>
+          <a href="/pages/movies.html?genre=动画" class="category-card">
+            <div class="category-icon">🎨</div>
+            <div class="category-name">动画</div>
+          </a>
+          <a href="/pages/movies.html?genre=纪录片" class="category-card">
+            <div class="category-icon">📹</div>
+            <div class="category-name">纪录片</div>
+          </a>
+          <a href="/pages/movies.html?genre=剧情" class="category-card">
+            <div class="category-icon">🎭</div>
+            <div class="category-name">剧情</div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/js/pages/home.js"></script>
+  </body>
+</html>

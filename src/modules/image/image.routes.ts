@@ -3,6 +3,6 @@ import { getImageProxy } from "./image.controller";
 
 const router = Router();
 
-router.get('/', getImageProxy);
+router.get('/proxy', getImageProxy);
 
 export default router;

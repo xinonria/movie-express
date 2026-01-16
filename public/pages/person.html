@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>人物详情 - 电影天堂</title>
+    <link rel="stylesheet" href="/css/movie-site.css" />
+    <style>
+      .person-page {
+        padding-top: 100px;
+        min-height: 100vh;
+      }
+
+      .person-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 4% 60px;
+      }
+
+      .person-header {
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+        margin-bottom: 30px;
+      }
+
+      .person-header img {
+        width: 220px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: var(--shadow-card);
+        background: var(--bg-card);
+      }
+
+      .person-info {
+        flex: 1;
+      }
+
+      .person-name {
+        font-size: 36px;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin: 0;
+      }
+
+      .person-alias {
+        color: var(--text-secondary);
+        margin-top: 6px;
+      }
+
+      .section-title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      #person-bio {
+        line-height: 1.6;
+      }
+
+      .person-meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        margin: 16px 0 20px;
+      }
+
+      .person-meta-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 10px;
+        padding: 12px 14px;
+      }
+
+      .person-meta-item span {
+        display: block;
+        color: var(--text-secondary);
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .section-block {
+        margin-top: 40px;
+      }
+
+      .movies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .empty-state {
+        padding: 20px;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 900px) {
+        .person-page {
+          padding-top: 80px;
+        }
+
+        .person-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .person-header img {
+          width: 180px;
+          height: 240px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .person-page {
+          padding-top: 80px;
+        }
+
+        .person-header {
+          gap: 16px;
+        }
+
+        .person-header img {
+          width: 160px;
+          height: 220px;
+        }
+
+        .person-name {
+          font-size: 28px;
+        }
+
+        .section-title {
+          font-size: 24px;
+        }
+
+        .person-meta {
+          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        }
+      }
+
+      @media (max-width: 480px) {
+        .person-page {
+          padding-top: 70px;
+        }
+
+        .person-header img {
+          width: 140px;
+          height: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="site-header"></div>
+
+    <div class="person-page">
+      <div class="person-container">
+        <div class="person-header">
+          <img id="person-image" src="" alt="人物头像" />
+          <div class="person-info">
+            <h1 class="person-name" id="person-name"></h1>
+            <div class="person-alias" id="person-alias"></div>
+            <div class="person-meta" id="person-meta"></div>
+            <p id="person-bio" style="color: var(--text-secondary);"></p>
+          </div>
+        </div>
+
+        <div class="section-block">
+          <h2 class="section-title">演员作品</h2>
+          <div class="movies-grid" id="actor-movies"></div>
+          <div class="empty-state" id="actor-empty" style="display: none;">暂无演员作品</div>
+        </div>
+
+        <div class="section-block">
+          <h2 class="section-title">导演作品</h2>
+          <div class="movies-grid" id="director-movies"></div>
+          <div class="empty-state" id="director-empty" style="display: none;">暂无导演作品</div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/pages/person.js"></script>
+  </body>
+</html>

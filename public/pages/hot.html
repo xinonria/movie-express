@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>热播电影 - 电影天堂</title>
+    <link rel="stylesheet" href="/css/movie-site.css" />
+    <style>
+      .hot-page {
+        padding-top: 100px;
+        min-height: 100vh;
+      }
+
+      .hot-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 4% 60px;
+      }
+
+      .movies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .hot-page {
+          padding-top: 80px;
+        }
+
+        .movies-grid {
+          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+          gap: 16px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hot-page {
+          padding-top: 70px;
+        }
+
+        .movies-grid {
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="site-header"></div>
+
+    <div class="hot-page">
+      <div class="hot-container">
+        <h1 class="section-title" id="hot-title">热播电影</h1>
+        <div class="movies-grid" id="hot-grid"></div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/pages/hot.js"></script>
+  </body>
+</html>

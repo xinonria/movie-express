@@ -1,0 +1,131 @@
+<header class="main-header" id="mainHeader">
+  <div class="nav-wrapper">
+    <nav class="main-nav">
+      <a href="/" class="brand-logo">电影天堂</a>
+
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="nav-panel"
+      >
+        <span class="nav-toggle-icon"></span>
+      </button>
+
+      <div class="nav-panel" id="nav-panel">
+        <ul class="nav-menu">
+          <li><a href="/">首页</a></li>
+          <li class="dropdown">
+            <a href="/pages/movies.html">电影</a>
+            <div class="dropdown-content">
+              <div class="dropdown-section">
+                <h4>热门分类</h4>
+                <a href="/pages/hot.html?period=week">🔥 热播电影</a>
+                <a href="/pages/movies.html?sort=hot">📊 热门排序</a>
+                <a href="/pages/movies.html?sort=score">⭐ 高分电影</a>
+                <a href="/pages/movies.html?sort=time">🆕 最新上映</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="/pages/movies.html">分类</a>
+            <div class="dropdown-content">
+              <div class="dropdown-section">
+                <h4>电影类型</h4>
+                <a href="/pages/movies.html?genre=动作">动作</a>
+                <a href="/pages/movies.html?genre=喜剧">喜剧</a>
+                <a href="/pages/movies.html?genre=爱情">爱情</a>
+                <a href="/pages/movies.html?genre=科幻">科幻</a>
+                <a href="/pages/movies.html?genre=恐怖">恐怖</a>
+                <a href="/pages/movies.html?genre=动画">动画</a>
+                <a href="/pages/movies.html?genre=剧情">剧情</a>
+                <a href="/pages/movies.html?genre=纪录片">纪录片</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="/pages/movies.html">地区</a>
+            <div class="dropdown-content">
+              <div class="dropdown-section">
+                <h4>制片地区</h4>
+                <a href="/pages/movies.html?region=中国大陆">中国大陆</a>
+                <a href="/pages/movies.html?region=美国">美国</a>
+                <a href="/pages/movies.html?region=香港">香港</a>
+                <a href="/pages/movies.html?region=日本">日本</a>
+                <a href="/pages/movies.html?region=韩国">韩国</a>
+                <a href="/pages/movies.html?region=英国">英国</a>
+                <a href="/pages/movies.html?region=法国">法国</a>
+                <a href="/pages/movies.html?region=印度">印度</a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="/pages/rank.html?type=all">排行榜</a>
+            <div class="dropdown-content">
+              <div class="dropdown-section">
+                <h4>榜单类型</h4>
+                <a href="/pages/rank.html?type=week">📅 本周排行</a>
+                <a href="/pages/rank.html?type=month">📆 本月排行</a>
+                <a href="/pages/rank.html?type=all">🏆 全部排行</a>
+                <a href="/pages/rank.html?type=rating">👍 好评排行</a>
+                <a href="/pages/rank.html?type=hot">🔥 热门排行</a>
+                <a href="/pages/rank.html?type=score">⭐ 高分排行</a>
+                <a href="/pages/rank.html?type=new">🆕 新片排行</a>
+                <a href="/pages/rank.html?type=classic">🎬 经典排行</a>
+              </div>
+            </div>
+          </li>
+          <li><a href="/pages/persons.html">明星</a></li>
+        </ul>
+
+        <div class="user-menu" id="user-menu">
+          <span class="search-icon" id="search-icon">🔍</span>
+
+          <div id="auth-links">
+            <a
+              href="/pages/login.html"
+              class="btn-hover btn-hover-play"
+              style="padding: 8px 20px"
+              >登录</a>
+          </div>
+
+          <div id="user-profile" class="user-profile" style="display: none;">
+            <a
+              href="/pages/profile.html"
+              style="color: var(--text-primary); text-decoration: none"
+            >
+              <span id="user-nickname">用户</span>
+            </a>
+            <span id="vip-tag" class="vip-tag" style="display: none;">VIP</span>
+            <a
+              href="#"
+              id="logout-btn"
+              class="logout-btn"
+              style="margin-left: 15px; color: var(--text-secondary); text-decoration: none;"
+            >
+              退出
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <form action="/pages/movies.html" method="get">
+        <input
+          type="text"
+          name="q"
+          class="search-input"
+          placeholder="搜索电影、导演、演员..."
+        />
+        <span class="search-close" id="search-close">✕</span>
+      </form>
+    </div>
+  </div>
+</div>

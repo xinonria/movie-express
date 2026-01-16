@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>观看历史 - 电影天堂</title>
+    <link rel="stylesheet" href="/css/movie-site.css" />
+    <style>
+      .history-page {
+        background: var(--bg-primary);
+        min-height: 100vh;
+        padding-top: calc(68px + 2rem);
+      }
+
+      .history-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem 4rem;
+      }
+
+      .page-header {
+        margin-bottom: 2rem;
+      }
+
+      .page-title {
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .page-subtitle {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+      }
+
+      .history-stats {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-card);
+        border: 1px solid var(--border-subtle);
+      }
+
+      .stats-row {
+        display: flex;
+        gap: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .stat-item {
+        flex: 1;
+        min-width: 150px;
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-red);
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+
+      .history-list {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: var(--shadow-card);
+        border: 1px solid var(--border-subtle);
+      }
+
+      .history-item {
+        display: flex;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-subtle);
+        transition: all 0.3s ease;
+      }
+
+      .history-item:last-child {
+        border-bottom: none;
+      }
+
+      .history-item:hover {
+        background: var(--bg-secondary);
+        border-radius: 8px;
+      }
+
+      .movie-poster {
+        width: 100px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: var(--shadow-card);
+      }
+
+      .history-info h3 {
+        font-size: 1.4rem;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .history-info p {
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+      }
+
+      .empty-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+      }
+
+      .empty-message {
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+
+      @media (max-width: 768px) {
+        .history-page {
+          padding-top: calc(60px + 1.5rem);
+        }
+
+        .history-container {
+          padding: 0 1.25rem 3rem;
+        }
+
+        .history-stats {
+          padding: 1.5rem;
+        }
+
+        .history-list {
+          padding: 1.5rem;
+        }
+
+        .history-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .movie-poster {
+          width: 120px;
+          height: 180px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .history-container {
+          padding: 0 1rem 2.5rem;
+        }
+
+        .empty-message {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="site-header"></div>
+
+    <div class="history-page">
+      <div class="history-container">
+        <div class="page-header">
+          <h1 class="page-title">观看历史</h1>
+          <p class="page-subtitle">记录你的观影足迹</p>
+        </div>
+
+        <div class="history-stats">
+          <div class="stats-row">
+            <div class="stat-item">
+              <div class="stat-value" id="history-count">0</div>
+              <div class="stat-label">观看记录</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="history-list" id="history-list"></div>
+
+        <div class="empty-state" id="history-empty" style="display: none;">
+          <div class="empty-icon">🎬</div>
+          <div class="empty-message">暂无观看记录</div>
+          <a href="/pages/movies.html" class="btn-hero btn-play">探索电影</a>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/pages/history.js"></script>
+  </body>
+</html>
