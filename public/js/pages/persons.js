@@ -3,12 +3,13 @@ import { loadHeader } from '../header.js';
 import { escapeHtml } from '../ui.js';
 
 function renderPerson(person) {
-  const image = person.profileImage
-    ? buildImageUrl(person.profileImage)
-    : '/images/herobackground.jpg';
+  const hasImage = !!person.profileImage;
+  const imageHtml = hasImage
+    ? `<img src="${buildImageUrl(person.profileImage)}" alt="${escapeHtml(person.name)}" />`
+    : `<div class="person-placeholder">👤</div>`;
   return `
     <a href="/pages/person.html?id=${escapeHtml(person.personId)}" class="person-card">
-      <img src="${image}" alt="${escapeHtml(person.name)}" />
+      ${imageHtml}
       <div>${escapeHtml(person.name)}</div>
       <div style="color: var(--text-secondary); font-size: 14px;">${escapeHtml(person.profession || '')}</div>
     </a>

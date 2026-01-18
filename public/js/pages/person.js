@@ -43,10 +43,14 @@ async function init() {
     const meta = document.getElementById('person-meta');
 
     if (image) {
-      const avatar = person.profileImage
-        ? buildImageUrl(person.profileImage)
-        : '/images/herobackground.jpg';
-      image.setAttribute('src', avatar);
+      if (person.profileImage) {
+        image.setAttribute('src', buildImageUrl(person.profileImage));
+      } else {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'person-placeholder';
+        placeholder.textContent = '👤';
+        image.replaceWith(placeholder);
+      }
     }
     if (name) {
       name.textContent = person.name;

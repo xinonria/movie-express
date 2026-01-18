@@ -33,6 +33,18 @@
         background: var(--bg-card);
       }
 
+      .person-placeholder {
+        width: 220px;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 100px;
+        background: var(--bg-card);
+        border-radius: 12px;
+        box-shadow: var(--shadow-card);
+      }
+
       .person-info {
         flex: 1;
       }
@@ -109,6 +121,12 @@
           width: 180px;
           height: 240px;
         }
+
+        .person-placeholder {
+          width: 180px;
+          height: 240px;
+          font-size: 80px;
+        }
       }
 
       @media (max-width: 600px) {
@@ -123,6 +141,12 @@
         .person-header img {
           width: 160px;
           height: 220px;
+        }
+
+        .person-placeholder {
+          width: 160px;
+          height: 220px;
+          font-size: 70px;
         }
 
         .person-name {
@@ -146,6 +170,12 @@
         .person-header img {
           width: 140px;
           height: 200px;
+        }
+
+        .person-placeholder {
+          width: 140px;
+          height: 200px;
+          font-size: 60px;
         }
       }
     </style>
